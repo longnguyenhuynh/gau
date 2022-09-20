@@ -6,6 +6,7 @@ parameters = false
 providers = ["gau","commoncrawl","otx","urlscan"]
 blacklist = ["ttf","woff","svg","png","jpg"]
 json = false
+domains = ["example.com", "ffuf.me"]
 
 [urlscan]
   apikey = ""

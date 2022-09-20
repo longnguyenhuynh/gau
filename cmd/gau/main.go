@@ -2,13 +2,15 @@ package main
 
 import (
 	"bufio"
-	"github.com/lc/gau/v2/pkg/output"
-	"github.com/lc/gau/v2/runner"
-	"github.com/lc/gau/v2/runner/flags"
-	log "github.com/sirupsen/logrus"
+	"fmt"
 	"io"
 	"os"
 	"sync"
+
+	"github.com/longnguyenhuynh/gau/v2/pkg/output"
+	"github.com/longnguyenhuynh/gau/v2/runner"
+	"github.com/longnguyenhuynh/gau/v2/runner/flags"
+	log "github.com/sirupsen/logrus"
 )
 
 func main() {
@@ -70,7 +72,12 @@ func main() {
 	domains := make(chan string)
 	gau.Start(domains, results)
 
-	if len(flags.Args()) > 0 {
+	if len(config.Domains) > 0 {
+		for _, domain := range config.Domains {
+			domains <- domain
+			fmt.Print(domain)
+		}
+	} else if len(flags.Args()) > 0 {
 		for _, domain := range flags.Args() {
 			domains <- domain
 		}

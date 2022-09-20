@@ -55,7 +55,7 @@ An example configuration file can be found [here](https://github.com/lc/gau/blob
 ## Installation:
 ### From source:
 ```
-$ go install github.com/lc/gau/v2/cmd/gau@latest
+$ go install github.com/longnguyenhuynh/gau/v2/cmd/gau@latest
 ```
 
 ### From binary:

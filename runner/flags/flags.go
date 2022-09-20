@@ -4,17 +4,18 @@ import (
 	"crypto/tls"
 	"flag"
 	"fmt"
-	"github.com/lc/gau/v2/pkg/providers"
-	"github.com/lynxsecurity/pflag"
-	"github.com/lynxsecurity/viper"
-	log "github.com/sirupsen/logrus"
-	"github.com/valyala/fasthttp"
-	"github.com/valyala/fasthttp/fasthttpproxy"
 	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
+
+	"github.com/longnguyenhuynh/gau/v2/pkg/providers"
+	"github.com/lynxsecurity/pflag"
+	"github.com/lynxsecurity/viper"
+	log "github.com/sirupsen/logrus"
+	"github.com/valyala/fasthttp"
+	"github.com/valyala/fasthttp/fasthttpproxy"
 )
 
 type URLScanConfig struct {
@@ -36,6 +37,7 @@ type Config struct {
 	JSON              bool              `mapstructure:"json"`
 	URLScan           URLScanConfig     `mapstructure:"urlscan"`
 	OTX               string            `mapstructure:"otx"`
+	Domains           []string          `mapstructure:"domain"`
 	Outfile           string            // output file to write to
 }
 
@@ -77,7 +79,8 @@ func (c *Config) ProviderConfig() (*providers.Config, error) {
 			Host:   c.URLScan.Host,
 			APIKey: c.URLScan.APIKey,
 		},
-		OTX: c.OTX,
+		OTX:     c.OTX,
+		Domains: c.Domains,
 	}
 
 	pc.Blacklist = make(map[string]struct{})
@@ -190,6 +193,7 @@ func (o *Options) getFlagValues(c *Config) {
 	threads := o.viper.GetUint("threads")
 	blacklist := o.viper.GetStringSlice("blacklist")
 	subs := o.viper.GetBool("subs")
+	domains := o.viper.GetStringSlice("domains")
 	fp := o.viper.GetBool("fp")
 
 	if version {
@@ -225,6 +229,10 @@ func (o *Options) getFlagValues(c *Config) {
 
 	if subs {
 		c.IncludeSubdomains = subs
+	}
+
+	if len(domains) > 0 {
+		c.Domains = domains
 	}
 
 	if fp {

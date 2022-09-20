@@ -2,6 +2,7 @@ package providers
 
 import (
 	"context"
+
 	"github.com/valyala/fasthttp"
 )
 
@@ -31,5 +32,6 @@ type Config struct {
 	Output            string
 	JSON              bool
 	URLScan           URLScan
+	Domains           []string
 	OTX               string
 }
