@@ -38,7 +38,7 @@ type Config struct {
 	URLScan           URLScanConfig     `mapstructure:"urlscan"`
 	OTX               string            `mapstructure:"otx"`
 	Domains           []string          `mapstructure:"domain"`
-	Outfile           string            // output file to write to
+	Outfile           string            `mapstructure:"o"`
 }
 
 func (c *Config) ProviderConfig() (*providers.Config, error) {
