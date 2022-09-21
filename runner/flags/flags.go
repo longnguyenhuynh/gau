@@ -73,7 +73,7 @@ func (c *Config) ProviderConfig() (*providers.Config, error) {
 			Dial: dialer,
 		},
 		Providers: c.Providers,
-		Output:    c.Outfile,
+		Outfile:   c.Outfile,
 		JSON:      c.JSON,
 		URLScan: providers.URLScan{
 			Host:   c.URLScan.Host,

@@ -29,7 +29,7 @@ type Config struct {
 	Client            *fasthttp.Client
 	Providers         []string
 	Blacklist         map[string]struct{}
-	Output            string
+	Outfile           string
 	JSON              bool
 	URLScan           URLScan
 	Domains           []string
